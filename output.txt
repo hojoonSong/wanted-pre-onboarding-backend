@@ -1,44 +1,13 @@
 .
 ├── README.md
-├── dist
-│   ├── DTO
-│   │   ├── create-job-posting.dto.d.ts
-│   │   ├── create-job-posting.dto.js
-│   │   └── create-job-posting.dto.js.map
-│   ├── app.module.d.ts
-│   ├── app.module.js
-│   ├── app.module.js.map
-│   ├── controllers
-│   │   ├── job-posting.controller.d.ts
-│   │   ├── job-posting.controller.js
-│   │   └── job-posting.controller.js.map
-│   ├── main.d.ts
-│   ├── main.js
-│   ├── main.js.map
-│   ├── models
-│   │   ├── applicant.entity.d.ts
-│   │   ├── applicant.entity.js
-│   │   ├── applicant.entity.js.map
-│   │   ├── company.entity.d.ts
-│   │   ├── company.entity.js
-│   │   ├── company.entity.js.map
-│   │   ├── job-posting.entity.d.ts
-│   │   ├── job-posting.entity.js
-│   │   ├── job-posting.entity.js.map
-│   │   ├── user.entity.d.ts
-│   │   ├── user.entity.js
-│   │   └── user.entity.js.map
-│   ├── services
-│   │   ├── job-posting.service.d.ts
-│   │   ├── job-posting.service.js
-│   │   └── job-posting.service.js.map
-│   └── tsconfig.build.tsbuildinfo
 ├── nest-cli.json
 ├── package-lock.json
 ├── package.json
 ├── src
 │   ├── DTO
-│   │   └── create-job-posting.dto.ts
+│   │   ├── create-job-posting.dto.ts
+│   │   ├── index.ts
+│   │   └── update-job-posting.dto.ts
 │   ├── app.module.ts
 │   ├── controllers
 │   │   └── job-posting.controller.ts
@@ -48,12 +17,16 @@
 │   │   ├── company.entity.ts
 │   │   ├── job-posting.entity.ts
 │   │   └── user.entity.ts
-│   └── services
-│       └── job-posting.service.ts
-├── test
-│   ├── app.e2e-spec.ts
-│   └── jest-e2e.json
+│   ├── services
+│   │   └── job-posting.service.ts
+│   └── test
+│       ├── app.e2e-spec.ts
+│       ├── controllers
+│       │   └── job-posting.controller.spec.ts
+│       ├── jest-e2e.json
+│       └── services
+│           └── job-posting.service.spec.ts
 ├── tsconfig.build.json
 └── tsconfig.json
 
-11 directories, 45 files
+8 directories, 21 files
