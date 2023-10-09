@@ -24,4 +24,8 @@ export class JobPostingService {
     await this.jobPostingRepository.update(id, dto);
     return this.jobPostingRepository.findOne({ where: { id: id } });
   }
+
+  async deleteJobPosting(id: number): Promise<void> {
+    await this.jobPostingRepository.delete(id);
+  }
 }

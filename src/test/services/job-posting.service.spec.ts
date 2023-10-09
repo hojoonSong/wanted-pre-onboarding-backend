@@ -16,6 +16,7 @@ describe('JobPostingService', () => {
         .mockImplementation((jobPosting) => Promise.resolve(jobPosting)),
       update: jest.fn().mockImplementation((_, dto) => Promise.resolve()),
       findOne: jest.fn().mockResolvedValue(null),
+      delete: jest.fn().mockResolvedValue({ affected: 1, raw: [] }),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -86,6 +87,18 @@ describe('JobPostingService', () => {
         where: { id: id },
       });
       expect(result).toEqual(updatedJobPosting);
+    });
+  });
+
+  describe('deleteJobPosting', () => {
+    it('should delete a job posting', async () => {
+      const id = 1;
+
+      mockRepository.delete.mockResolvedValueOnce({ affected: 1, raw: [] });
+
+      await service.deleteJobPosting(id);
+
+      expect(mockRepository.delete).toHaveBeenCalledWith(id);
     });
   });
 });
