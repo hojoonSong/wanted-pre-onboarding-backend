@@ -2,27 +2,34 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { JobPostingService } from '../services/job-posting.service';
-import { CreateJobPostingDto, UpdateJobPostingDto } from '../DTO';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import {
+  JobPostingDto,
+  JobPostingResponseDto,
+  UpdateJobPostingDto,
+} from '../DTO';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('job-postings')
 @Controller('job-postings')
 export class JobPostingController {
   constructor(private readonly jobPostingService: JobPostingService) {}
 
   @Post()
-  @ApiBody({ type: CreateJobPostingDto })
+  @ApiBody({ type: JobPostingDto })
   @ApiResponse({
     status: 201,
     description: '채용공고가 성공적으로 등록되었습니다.',
-    type: CreateJobPostingDto,
+    type: JobPostingDto,
   })
-  createJobPosting(@Body() dto: CreateJobPostingDto) {
+  createJobPosting(@Body() dto: JobPostingDto) {
     return this.jobPostingService.createJobPosting(dto);
   }
 
@@ -45,5 +52,16 @@ export class JobPostingController {
   })
   deleteJobPosting(@Param('id') id: number) {
     return this.jobPostingService.deleteJobPosting(id);
+  }
+
+  @Get()
+  @ApiQuery({ name: 'search', required: false })
+  @ApiResponse({
+    status: 200,
+    description: '채용공고 목록을 성공적으로 가져왔습니다.',
+    type: [JobPostingResponseDto],
+  })
+  getJobPostings(@Query('search') search?: string) {
+    return this.jobPostingService.getJobPostings(search);
   }
 }

@@ -5,12 +5,15 @@
 ├── package.json
 ├── src
 │   ├── DTO
-│   │   ├── create-job-posting.dto.ts
+│   │   ├── company.dto.ts
 │   │   ├── index.ts
-│   │   └── update-job-posting.dto.ts
+│   │   ├── job-posting-response.dto.ts
+│   │   ├── job-posting.dto.ts
+│   │   └── update-job-posting.ts
 │   ├── app.module.ts
 │   ├── controllers
-│   │   └── job-posting.controller.ts
+│   │   ├── job-posting.controller.ts
+│   │   └── sample.controller.ts
 │   ├── main.ts
 │   ├── models
 │   │   ├── applicant.entity.ts
@@ -18,7 +21,9 @@
 │   │   ├── job-posting.entity.ts
 │   │   └── user.entity.ts
 │   ├── services
-│   │   └── job-posting.service.ts
+│   │   ├── company.service.ts
+│   │   ├── job-posting.service.ts
+│   │   └── user.service.ts
 │   └── test
 │       ├── app.e2e-spec.ts
 │       ├── controllers
@@ -29,4 +34,4 @@
 ├── tsconfig.build.json
 └── tsconfig.json
 
-8 directories, 21 files
+8 directories, 26 files

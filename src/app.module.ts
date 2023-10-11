@@ -7,6 +7,9 @@ import { Applicant } from './models/applicant.entity';
 import { Company } from './models/company.entity';
 import { JobPosting } from './models/job-posting.entity';
 import { User } from './models/user.entity';
+import { CompanyService } from './services/company.service';
+import { UserService } from './services/user.service';
+import { SampleController } from './controllers/sample.controller';
 
 @Module({
   imports: [
@@ -27,7 +30,7 @@ import { User } from './models/user.entity';
     }),
     TypeOrmModule.forFeature([Applicant, Company, JobPosting, User]),
   ],
-  controllers: [JobPostingController],
-  providers: [JobPostingService],
+  controllers: [JobPostingController, SampleController],
+  providers: [JobPostingService, CompanyService, UserService],
 })
 export class AppModule {}

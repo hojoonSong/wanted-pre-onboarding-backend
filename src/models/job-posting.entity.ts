@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { Company } from './company.entity';
 import { Applicant } from './applicant.entity';
 
@@ -7,8 +14,12 @@ export class JobPosting {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Company, company => company.jobPostings)
+  @ManyToOne(() => Company, (company) => company.jobPostings)
+  @JoinColumn({ name: 'companyId' })
   company: Company;
+
+  @Column()
+  companyId: number;
 
   @Column({ length: 255 })
   position: string;
@@ -22,6 +33,6 @@ export class JobPosting {
   @Column({ length: 255 })
   technology: string;
 
-  @OneToMany(() => Applicant, applicant => applicant.jobPosting)
+  @OneToMany(() => Applicant, (applicant) => applicant.jobPosting)
   applicants: Applicant[];
 }

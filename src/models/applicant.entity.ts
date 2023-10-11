@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Unique } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Unique,
+} from 'typeorm';
 import { JobPosting } from './job-posting.entity';
 import { User } from './user.entity';
 
@@ -11,9 +17,11 @@ export class Applicant {
   @Column()
   userId: number;
 
-  @ManyToOne(() => JobPosting, jobPosting => jobPosting.applicants, { onDelete: 'CASCADE' })
+  @ManyToOne(() => JobPosting, (jobPosting) => jobPosting.applicants, {
+    onDelete: 'CASCADE',
+  })
   jobPosting: JobPosting;
 
-  @ManyToOne(() => User, user => user.applications)
+  @ManyToOne(() => User, (user) => user.applications)
   user: User;
 }
