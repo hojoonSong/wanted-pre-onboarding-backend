@@ -11,13 +11,21 @@
 
 ### 기능들:
 
-1. **회사 관리**
-   - 회사 정보 생성, 수정, 조회, 삭제
-2. **채용 정보 관리**
-   - 채용 정보 생성, 수정, 조회, 삭제
-3. **지원자 관리**
-   - 사용자가 채용 정보에 지원
-   - 지원자 목록 조회
+#### 1. **채용 정보 관리**
+
+- 생성: POST `/job-postings`
+- 업데이트: PUT & PATCH `/job-postings/:id`
+- 삭제: DELETE `/job-postings/:id`
+- 전체 조회: GET `/job-postings`
+- 상세 조회: GET `/job-postings/:id/job_posting_detail`
+
+#### 2. **지원자 관리**
+
+- 채용공고에 지원: POST `/applications`
+
+#### 3. **Sample 데이터 생성**
+
+- 기능 테스트를 위한 회사와 사용자를 생성: POST 'sample/company', 'sample/user'
 
 ## 구현 과정
 
