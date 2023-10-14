@@ -8,6 +8,8 @@ describe('JobPostingController', () => {
     createJobPosting: jest.Mock;
     updateJobPosting: jest.Mock;
     deleteJobPosting: jest.Mock;
+    getJobPostings: jest.Mock;
+    getJobPostingDetail: jest.Mock;
     jobPostingRepository: {
       findOne: jest.Mock;
       save: jest.Mock;
@@ -21,6 +23,8 @@ describe('JobPostingController', () => {
       createJobPosting: jest.fn(),
       updateJobPosting: jest.fn(),
       deleteJobPosting: jest.fn(),
+      getJobPostings: jest.fn(),
+      getJobPostingDetail: jest.fn(),
       jobPostingRepository: {
         findOne: jest.fn(),
         save: jest.fn(),
@@ -103,6 +107,86 @@ describe('JobPostingController', () => {
       await controller.deleteJobPosting(id);
 
       expect(mockService.deleteJobPosting).toHaveBeenCalledWith(id);
+    });
+  });
+
+  describe('getJobPostings', () => {
+    it('should retrieve job postings', async () => {
+      const jobPostings = [
+        {
+          title: 'Software Engineer',
+          description: 'A software job',
+          companyId: 1,
+          position: 'Engineer',
+          reward: 50000,
+          content: 'Job details here',
+          technology: 'TypeScript, NestJS',
+        },
+      ];
+      mockService.getJobPostings = jest
+        .fn()
+        .mockResolvedValue(jobPostings as any);
+
+      const result = await controller.getJobPostings();
+
+      expect(mockService.getJobPostings).toHaveBeenCalled();
+      expect(result).toEqual(jobPostings);
+    });
+
+    it('should retrieve job postings with search query', async () => {
+      const jobPostings = [
+        {
+          title: 'Software Engineer',
+          description: 'A software job',
+          companyId: 1,
+          position: 'Engineer',
+          reward: 50000,
+          content: 'Job details here',
+          technology: 'TypeScript, NestJS',
+        },
+      ];
+      const searchQuery = 'Software';
+      mockService.getJobPostings = jest
+        .fn()
+        .mockResolvedValue(jobPostings as any);
+
+      const result = await controller.getJobPostings(searchQuery);
+
+      expect(mockService.getJobPostings).toHaveBeenCalledWith(searchQuery);
+      expect(result).toEqual(jobPostings);
+    });
+  });
+
+  describe('getJobPostingDetail', () => {
+    it('should retrieve job posting detail', async () => {
+      const id = 1;
+      const jobPostingDetail = {
+        id,
+        title: 'Software Engineer',
+        description: 'A software job',
+        companyId: 1,
+        position: 'Engineer',
+        reward: 50000,
+        content: 'Job details here',
+        technology: 'TypeScript, NestJS',
+      };
+      mockService.getJobPostingDetail = jest
+        .fn()
+        .mockResolvedValue(jobPostingDetail as any);
+
+      const result = await controller.getJobPostingDetail(id);
+
+      expect(mockService.getJobPostingDetail).toHaveBeenCalledWith(id);
+      expect(result).toEqual(jobPostingDetail);
+    });
+
+    it('should throw an error if job posting is not found', async () => {
+      const id = 1;
+      mockService.getJobPostingDetail = jest.fn().mockResolvedValue(null);
+
+      await expect(controller.getJobPostingDetail(id)).rejects.toThrow();
+
+      expect(mockService.getJobPostingDetail).toHaveBeenCalledWith(id);
     });
   });
 });

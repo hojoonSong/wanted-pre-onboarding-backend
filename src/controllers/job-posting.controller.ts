@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -75,6 +76,11 @@ export class JobPostingController {
   async getJobPostingDetail(
     @Param('id') id: number,
   ): Promise<JobPostingDetailDto> {
-    return this.jobPostingService.getJobPostingDetail(id);
+    const jobPostingDetail =
+      await this.jobPostingService.getJobPostingDetail(id);
+    if (!jobPostingDetail) {
+      throw new NotFoundException(`채용공고 ${id}를 찾을 수 없습니다.`);
+    }
+    return jobPostingDetail;
   }
 }

@@ -1,12 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { JobPostingService } from '../../services/job-posting.service';
-import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { JobPosting } from '../../models/job-posting.entity';
 
 describe('JobPostingService', () => {
   let service: JobPostingService;
-  let mockRepository: Partial<jest.Mocked<Repository<JobPosting>>>;
+  let mockRepository: any;
 
   beforeEach(async () => {
     mockRepository = {
@@ -14,9 +13,16 @@ describe('JobPostingService', () => {
       save: jest
         .fn()
         .mockImplementation((jobPosting) => Promise.resolve(jobPosting)),
-      update: jest.fn().mockImplementation((_, dto) => Promise.resolve()),
+      update: jest.fn().mockResolvedValue({}),
       findOne: jest.fn().mockResolvedValue(null),
       delete: jest.fn().mockResolvedValue({ affected: 1, raw: [] }),
+      find: jest.fn().mockResolvedValue([]),
+      createQueryBuilder: jest.fn(() => ({
+        innerJoinAndSelect: jest.fn().mockReturnThis(),
+        where: jest.fn().mockReturnThis(),
+        orWhere: jest.fn().mockReturnThis(),
+        getMany: jest.fn().mockResolvedValue([]),
+      })),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -99,6 +105,105 @@ describe('JobPostingService', () => {
       await service.deleteJobPosting(id);
 
       expect(mockRepository.delete).toHaveBeenCalledWith(id);
+    });
+  });
+
+  describe('getJobPostings', () => {
+    it('should retrieve job postings with optional search parameter', async () => {
+      const search = 'Engineer';
+      const postings = [
+        {
+          id: 1,
+          company: { name: 'ABC Corp', country: 'USA', region: 'West' },
+          position: 'Engineer',
+          reward: 50000,
+          technology: 'TypeScript, NestJS',
+        },
+      ];
+      const expectedDto = postings.map((post) => ({
+        id: post.id,
+        companyName: post.company.name,
+        country: post.company.country,
+        region: post.company.region,
+        position: post.position,
+        reward: post.reward,
+        technology: post.technology,
+      }));
+
+      const queryBuilderMock = {
+        innerJoinAndSelect: jest.fn().mockReturnThis(),
+        where: jest.fn().mockReturnThis(),
+        orWhere: jest.fn().mockReturnThis(),
+        getMany: jest.fn().mockResolvedValue(postings),
+      };
+      mockRepository.createQueryBuilder.mockReturnValue(queryBuilderMock);
+
+      const result = await service.getJobPostings(search);
+
+      expect(mockRepository.createQueryBuilder).toHaveBeenCalled();
+      expect(queryBuilderMock.innerJoinAndSelect).toHaveBeenCalledWith(
+        'jobPosting.company',
+        'company',
+      );
+      expect(queryBuilderMock.where).toHaveBeenCalled();
+      expect(queryBuilderMock.orWhere).toHaveBeenCalled();
+      expect(queryBuilderMock.getMany).toHaveBeenCalled();
+
+      expect(result).toEqual(expectedDto);
+    });
+  });
+
+  describe('getJobPostingDetail', () => {
+    it('should retrieve the detailed information of a job posting by id', async () => {
+      const id = 1;
+
+      const posting = {
+        id: 1,
+        company: { name: 'ABC Corp', country: 'USA', region: 'West' },
+        position: 'Engineer',
+        reward: 50000,
+        technology: 'TypeScript, NestJS',
+        content: 'Details about the position',
+        companyId: 1,
+      } as JobPosting;
+
+      const otherPostings = [
+        {
+          id: 2,
+          company: { name: 'ABC Corp', country: 'USA', region: 'West' },
+          position: 'Engineer',
+          reward: 50000,
+          technology: 'TypeScript, NestJS',
+          content: 'Details about the position',
+          companyId: 1,
+        },
+      ] as JobPosting[];
+
+      const expectedDetailDto = {
+        id: posting.id,
+        companyName: posting.company.name,
+        country: posting.company.country,
+        region: posting.company.region,
+        position: posting.position,
+        reward: posting.reward,
+        technology: posting.technology,
+        content: posting.content,
+        otherJobPostings: otherPostings.map((p) => p.id),
+      };
+
+      mockRepository.findOne.mockResolvedValueOnce(posting);
+      mockRepository.find.mockResolvedValueOnce(otherPostings);
+
+      const result = await service.getJobPostingDetail(id);
+
+      expect(mockRepository.findOne).toHaveBeenCalledWith({
+        where: { id },
+        relations: ['company'],
+      });
+      expect(mockRepository.find).toHaveBeenCalledWith({
+        where: { company: posting.company },
+      });
+      expect(result).toEqual(expectedDetailDto);
     });
   });
 });
