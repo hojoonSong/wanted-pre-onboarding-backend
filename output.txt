@@ -1,17 +1,21 @@
 .
 ├── README.md
+├── erd.png
 ├── nest-cli.json
 ├── package-lock.json
 ├── package.json
 ├── src
 │   ├── DTO
 │   │   ├── company.dto.ts
+│   │   ├── create-application.dto.ts
 │   │   ├── index.ts
+│   │   ├── job-posting-detail.dto.ts.ts
 │   │   ├── job-posting-response.dto.ts
 │   │   ├── job-posting.dto.ts
 │   │   └── update-job-posting.ts
 │   ├── app.module.ts
 │   ├── controllers
+│   │   ├── application.controller.ts
 │   │   ├── job-posting.controller.ts
 │   │   └── sample.controller.ts
 │   ├── main.ts
@@ -21,17 +25,20 @@
 │   │   ├── job-posting.entity.ts
 │   │   └── user.entity.ts
 │   ├── services
+│   │   ├── application.service.ts
 │   │   ├── company.service.ts
 │   │   ├── job-posting.service.ts
 │   │   └── user.service.ts
 │   └── test
 │       ├── app.e2e-spec.ts
 │       ├── controllers
+│       │   ├── application.controller.spec.ts
 │       │   └── job-posting.controller.spec.ts
 │       ├── jest-e2e.json
 │       └── services
+│           ├── application.service.spec.ts
 │           └── job-posting.service.spec.ts
 ├── tsconfig.build.json
 └── tsconfig.json
 
-8 directories, 26 files
+8 directories, 33 files
