@@ -1,41 +1,47 @@
-# 원티드 프리온보딩 개발과정
+# 🚀 원티드 프리온보딩 개발과정 🚀
 
-## NestJS: 새로운 도전
+## 📘 API Documentation
 
-- 저는 과거에는 스프링(Spring) + 코틀린(Kotlin), ExpressJS, 그리고 FastAPI를 사용하여 백엔드 서비스를 개발한 경험이 있습니다. 그런데, 최근에 주어진 프로젝트에서 어떤 프레임워크를 해야하는지 고민이 되었습니다. 저는 다양한 언어와 프레임워크를 경험하는 것을 좋아하고, 이번 기회에 NestJS를 경험하면 좋겠다 생각이 들었습니다.
+👉 [Swagger Documentation](https://wante-preonboarding-backend.onrender.com/api-docs#/)
 
-### NestJS는?
+- 무료 PaaS 배포로 링크 클릭 후, Cold Start가 있을 수 있습니다.
 
-#### 1. 모듈 시스템과 의존성 주입(DI)
+## 📚 기술 스택
+
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![TypeORM](https://img.shields.io/badge/TypeORM-fe0902?style=for-the-badge&logo=databricks&logoColor=white)](https://typeorm.io/)
+
+## 💼 NestJS: 새로운 도전
+
+### 🌟 NestJS는?
+
+#### 1️⃣ 모듈 시스템과 의존성 주입(DI)
 
 - NestJS에서 가장 빛나는 부분 중 하나는 모듈 시스템과 의존성 주입(DI)입니다. 제가 사용해보았던 스프링과 유사한 개념을 가지고 있으며, 코드를 모듈로 구성하고 컴포넌트 간의 의존성을 체계적으로 관리할 수 있도록 도와줍니다. 이러한 접근 방식은 코드의 가독성을 향상시키고 재사용성을 높입니다.
 
-#### 2. TypeScript와 정적 타입 검사
+#### 2️⃣ TypeScript와 정적 타입 검사
 
 - NestJS는 TypeScript를 기반으로 하고 있어 코드의 안정성을 보장하는 데 큰 도움을 줍니다. 정적 타입 검사를 통해 런타임 오류를 사전에 방지할 수 있습니다.
 
-#### 3. 코드 구성
+#### 3️⃣ 코드 구성
 
 - NestJS는 모듈 시스템을 통해 코드를 구성하고 각 모듈은 독립적으로 테스트 및 유지보수가 가능합니다. 이는 스프링의 모듈화 개념과 유사하며 큰 프로젝트에서 특히 유용합니다.
 
-### NestJS를 통한 프로젝트 구현
+### 🚀 NestJS를 통한 프로젝트 구현
 
-- 프로젝트를 구현하는 과정에서, Nest CLI를 사용하여 프로젝트를 초기화하고 모듈 및 컨트롤러를 생성했습니다. NestJS는 코드의 구조를 표준화하고 클라이언트 요청을 컨트롤러 메서드와 자동으로 연결해주는 편리한 기능을 제공합니다.
-
-- 비즈니스 로직을 구현할 때에는 의존성 주입(DI)를 사용하여 서비스와 리포지토리 사이의 의존성을 관리하였습니다. 이를 통해 코드를 모듈로 나누고 테스트 가능한 형태로 유지할 수 있었습니다. 또한 미들웨어와 인터셉터를 활용하여 요청과 응답을 가로채고 로깅, 권한 검사 등을 수행했습니다.
-
-## 요구사항 분석
+## 📑 요구사항 분석
 
 - **JobPosting:** 특정 기업이 게시한 채용 정보를 담고 있습니다. 채용 포지션, 보상, 콘텐츠 및 사용 기술을 포함합니다.
 - **Applicant:** 채용에 지원한 사용자의 정보를 담고 있습니다.
 
-## ERD
+## 🗺️ ERD
 
 ![ERD Diagram](erd.png)
 
-### 기능들:
+### 🔥 기능들:
 
-#### 1. **채용 정보 관리**
+#### 1️⃣ **채용 정보 관리**
 
 - 생성: POST `/job-postings`
 - 업데이트: PUT & PATCH `/job-postings/:id`
@@ -43,17 +49,17 @@
 - 전체 조회: GET `/job-postings`
 - 상세 조회: GET `/job-postings/:id/job_posting_detail`
 
-#### 2. **지원자 관리**
+#### 2️⃣ **지원자 관리**
 
 - 채용공고에 지원: POST `/applications`
 
-#### 3. **Sample 데이터 생성**
+#### 3️⃣ **Sample 데이터 생성**
 
 - 기능 테스트를 위한 회사와 사용자를 생성: POST `/sample/company`, `/sample/user`
 
-## 구현 과정
+## 📂 구현 과정
 
-### 폴더 구조:
+### 📁 폴더 구조:
 
 ```
 project-root
@@ -67,9 +73,9 @@ project-root
 └── 기타 설정 및 메타데이터 파일들
 ```
 
-## API 엔드포인트 상세
+## 📝 API 엔드포인트 상세
 
-### 채용 공고 관리
+### 🎉 채용 공고 관리
 
 #### 1. 채용 공고 생성 (요구사항 1)
 
@@ -133,6 +139,6 @@ project-root
   - **Body:** `CreateApplicationDto`
   - **409 Conflict:** 이미 채용 공고에 지원했을 경우의 응답.
 
-## 마무리와 배운 점
+## 🏁 마무리와 배운 점
 
 - NestJS를 처음 사용하는 과정은 새로운 도전이었지만, 이러한 도전이 개발자로서 성장을 이끄는 원동력 중 하나라고 믿습니다. 스프링과 비슷한 개념을 가지고 있어서 스프링 개발자에게 친숙하게 다가올 수 있었습니다. 또한 TypeScript와 모듈 시스템을 통한 코드 구성은 코드의 가독성과 재사용성을 높여주었습니다.
