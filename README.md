@@ -4,9 +4,7 @@
 
 👉 [Swagger Documentation](https://wante-preonboarding-backend.onrender.com/api-docs#/)
 
-### 🚀 무료 PaaS 배포 주의사항
-
-- 클릭 후 약간의 대기 시간이 있을 수 있습니다(Cold Start 현상).
+- 🚀 배포 주의사항 (클릭 후 약간의 대기 시간이 있을 수 있습니다. 콜드스타트 현상)
 
 ## 📚 기술 스택
 
