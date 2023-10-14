@@ -49,7 +49,7 @@
 
 #### 3. **Sample 데이터 생성**
 
-- 기능 테스트를 위한 회사와 사용자를 생성: POST 'sample/company', 'sample/user'
+- 기능 테스트를 위한 회사와 사용자를 생성: POST `/sample/company`, `/sample/user`
 
 ## 구현 과정
 
