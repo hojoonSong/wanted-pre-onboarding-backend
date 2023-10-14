@@ -2,7 +2,7 @@
 
 ## 📘 API Documentation
 
-👉 [Swagger Documentation](https://wante-preonboarding-backend.onrender.com/api-docs#/)
+- 👉 [Swagger Documentation](https://wante-preonboarding-backend.onrender.com/api-docs#/)
 
 - 🚀 배포 주의사항 (클릭 후 약간의 대기 시간이 있을 수 있습니다. 콜드스타트 현상)
 
