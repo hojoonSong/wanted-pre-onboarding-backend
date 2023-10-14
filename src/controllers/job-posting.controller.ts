@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { JobPostingService } from '../services/job-posting.service';
 import {
+  JobPostingDetailDto,
   JobPostingDto,
   JobPostingResponseDto,
   UpdateJobPostingDto,
@@ -63,5 +64,17 @@ export class JobPostingController {
   })
   getJobPostings(@Query('search') search?: string) {
     return this.jobPostingService.getJobPostings(search);
+  }
+
+  @Get(':id/job_posting_detail')
+  @ApiResponse({
+    status: 200,
+    description: '채용공고의 상세 정보를 성공적으로 가져왔습니다.',
+    type: JobPostingDetailDto,
+  })
+  async getJobPostingDetail(
+    @Param('id') id: number,
+  ): Promise<JobPostingDetailDto> {
+    return this.jobPostingService.getJobPostingDetail(id);
   }
 }

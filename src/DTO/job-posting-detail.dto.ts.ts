@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class JobPostingResponseDto {
+export class JobPostingDetailDto {
   @ApiProperty()
   id: number;
 
@@ -21,4 +21,10 @@ export class JobPostingResponseDto {
 
   @ApiProperty()
   technology: string;
+
+  @ApiProperty()
+  content: string;
+
+  @ApiProperty({ required: false })
+  otherJobPostings?: number[];
 }

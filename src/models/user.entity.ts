@@ -6,6 +6,6 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => Applicant, applicant => applicant.user)
+  @OneToMany(() => Applicant, (applicant) => applicant.user)
   applications: Applicant[];
 }

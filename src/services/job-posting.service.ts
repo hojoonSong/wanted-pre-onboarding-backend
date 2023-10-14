@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JobPosting } from '../models/job-posting.entity';
@@ -6,6 +6,7 @@ import {
   JobPostingResponseDto,
   UpdateJobPostingDto,
   JobPostingDto,
+  JobPostingDetailDto,
 } from 'src/DTO';
 
 @Injectable()
@@ -51,7 +52,7 @@ export class JobPostingService {
       : await this.jobPostingRepository.find({ relations: ['company'] });
 
     return postings.map((post) => ({
-      postingId: post.id,
+      id: post.id,
       companyName: post.company.name,
       country: post.company.country,
       region: post.company.region,
@@ -59,5 +60,36 @@ export class JobPostingService {
       reward: post.reward,
       technology: post.technology,
     }));
+  }
+
+  async getJobPostingDetail(id: number): Promise<JobPostingDetailDto> {
+    const posting = await this.jobPostingRepository.findOne({
+      where: { id: id },
+      relations: ['company'],
+    });
+
+    if (!posting) {
+      throw new NotFoundException('채용공고가 없습니다.');
+    }
+
+    const otherPostings = await this.jobPostingRepository.find({
+      where: { company: posting.company },
+    });
+
+    const otherPostingIds = otherPostings
+      .map((p) => p.id)
+      .filter((pid) => String(pid) !== String(id));
+
+    return {
+      id: posting.id,
+      companyName: posting.company.name,
+      country: posting.company.country,
+      region: posting.company.region,
+      position: posting.position,
+      reward: posting.reward,
+      technology: posting.technology,
+      content: posting.content,
+      otherJobPostings: otherPostingIds,
+    };
   }
 }
