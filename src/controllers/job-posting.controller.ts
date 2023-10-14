@@ -36,7 +36,6 @@ export class JobPostingController {
   }
 
   @Put(':id')
-  @Patch(':id')
   @ApiBody({ type: UpdateJobPostingDto })
   @ApiResponse({
     status: 200,
@@ -44,6 +43,17 @@ export class JobPostingController {
     type: UpdateJobPostingDto,
   })
   updateJobPosting(@Param('id') id: number, @Body() dto: UpdateJobPostingDto) {
+    return this.jobPostingService.updateJobPosting(id, dto);
+  }
+
+  @Patch(':id')
+  @ApiBody({ type: UpdateJobPostingDto })
+  @ApiResponse({
+    status: 200,
+    description: '채용공고가 성공적으로 업데이트되었습니다.',
+    type: UpdateJobPostingDto,
+  })
+  patchJobPosting(@Param('id') id: number, @Body() dto: UpdateJobPostingDto) {
     return this.jobPostingService.updateJobPosting(id, dto);
   }
 

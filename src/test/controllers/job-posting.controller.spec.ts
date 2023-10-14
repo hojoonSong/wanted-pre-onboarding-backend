@@ -1,3 +1,4 @@
+import { UpdateJobPostingDto } from 'src/DTO';
 import { Test, TestingModule } from '@nestjs/testing';
 import { JobPostingController } from '../../controllers/job-posting.controller';
 import { JobPostingService } from '../../services/job-posting.service';
@@ -81,21 +82,30 @@ describe('JobPostingController', () => {
     const updatedJobPosting = { ...dto, id };
 
     it('should update a job posting with PUT', async () => {
-      mockService.updateJobPosting.mockResolvedValue(updatedJobPosting as any);
+      mockService.updateJobPosting.mockResolvedValue(updatedJobPosting);
 
       const result = await controller.updateJobPosting(id, dto);
 
       expect(mockService.updateJobPosting).toHaveBeenCalledWith(id, dto);
       expect(result).toEqual(updatedJobPosting);
     });
+  });
 
-    it('should update a job posting with PATCH', async () => {
-      mockService.updateJobPosting.mockResolvedValue(updatedJobPosting as any);
+  describe('patchJobPosting', () => {
+    const id = 1;
+    const dto = {
+      position: 'Updated Position',
+      reward: 60000,
+    };
+    const patchedJobPosting = { ...dto, id };
 
-      const result = await controller.updateJobPosting(id, dto);
+    it('should patch a job posting with PATCH', async () => {
+      mockService.updateJobPosting.mockResolvedValue(patchedJobPosting);
+
+      const result = await controller.patchJobPosting(id, dto);
 
       expect(mockService.updateJobPosting).toHaveBeenCalledWith(id, dto);
-      expect(result).toEqual(updatedJobPosting);
+      expect(result).toEqual(patchedJobPosting);
     });
   });
 
